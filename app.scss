@@ -1,0 +1,49 @@
+@import "./node_modules/@r.phuwanat/minbootstrap/scss/minBootstrap.scss";
+.type-area:focus {
+    border: none;
+    outline: none;
+}
+#line{
+    background-color: darken($color: $dark, $amount: 5);
+}
+#editor,#editor div{
+    font-family: monospace;
+}
+#line,#line div{
+    font-family: monospace;
+}
+body{
+    overflow: hidden;
+}
+body.modal-open{
+    padding-right: 0 !important;
+}
+.filename{
+    padding: 0.5rem;
+    border-radius: $radius;
+    &:focus{
+        @extend input.form-item:focus ;
+    }
+}
+.autosaving{
+    animation: saving 1.3s linear infinite ;
+    display: none;
+    &.showing{
+        display: block;
+    }
+}
+@keyframes saving{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.popup{
+    line-height: 2;
+}
