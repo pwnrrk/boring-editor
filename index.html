@@ -20,48 +20,74 @@
         </button>
         <div class="navbar-collapse" id="navbar-col">
             <ul class="align-items-center">
-                <li><a class="navbar-link" data-toggle="popup" data-target="#file">File</a></li>
-                <!-- TODO Add Popup left corner (Bootstrap) -->
-                <div class="popup bg-dark bd-secondary" id="file">
-                    <a class="text-light">
-                        <div class="pl-1 pr-1">
-                            New
-                        </div>
-                    </a>
-                    <a class="text-light" data-target="#save" data-toggle="modal">
-                        <div class="pl-1 pr-1">
-                            Save
-                        </div>
-                    </a>
-                    <a class="text-light">
-                        <div class="pl-1 pr-1">
-                            Save as
-                        </div>
-                    </a>
+                <li><a class="navbar-link" data-toggle="dropdown" data-target="#file">File</a></li>
+                <div class="dropdown bg-dark bd-secondary" id="file">
+                    <ul>
+                        <li><a class="text-light">
+                                <div>
+                                    New
+                                </div>
+                            </a></li>
+                        <li><a class="text-light" data-target="#save" data-toggle="modal">
+                                <div>
+                                    Save
+                                </div>
+                            </a></li>
+                        <li><a class="text-light">
+                                <div>
+                                    Save as
+                                </div>
+                            </a></li>
+                    </ul>
                 </div>
-                <li><a class="navbar-link" data-toggle="popup" data-target="#edit">Edit</a></li>
-                <div class="popup bg-dark bd-secondary" id="edit">
-                    <a class="text-light">
-                        <div class="pl-1 pr-1">
-                            Undo
-                        </div>
-                    </a>
-                    <a class="text-light" data-target="#save" data-toggle="modal">
-                        <div class="pl-1 pr-1">
-                            Redo
-                        </div>
-                    </a>
-                    <a class="text-light">
-                        <div class="pl-1 pr-1">
-                            Cut
-                        </div>
-                    </a>
-                    <a class="text-light">
-                        <div class="pl-1 pr-1">
-                            Copy
-                        </div>
-                    </a>
+                <li><a class="navbar-link" data-toggle="dropdown" data-target="#edit">Edit</a></li>
+                <div class="dropdown bg-dark bd-secondary" id="edit">
+                    <ul>
+                        <li><a class="text-light">
+                                <div>
+                                    Undo
+                                </div>
+                            </a></li>
+                        <li><a class="text-light">
+                                <div>
+                                    Redo
+                                </div>
+                            </a></li>
+                        <li><a class="text-light">
+                                <div>
+                                    Cut
+                                </div>
+                            </a></li>
+                            <li><a class="text-light">
+                                <div>
+                                    Copy
+                                </div>
+                            </a></li>
+                    </ul>
                 </div>
+                <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
+                <div class="dropdown bg-dark bd-secondary" id="help">
+                    <ul>
+                        <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor/issue" target="_blank">
+                            <div>
+                                Report or View issue
+                            </div>
+                        </a></li>
+                        <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE">
+                                <div>
+                                    View Licence
+                                </div>
+                            </a></li>
+                        <li><a class="text-light" href="https://pwnrrk.github.io">
+                                <div>
+                                    Contributor
+                                </div>
+                            </a></li>
+                            <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor#readme">
+                                <div>
+                                    About
+                                </div>
+                            </a></li>
             </ul>
             </ul>
             <ul class="justify-content-end align-items-center">

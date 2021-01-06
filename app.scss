@@ -43,7 +43,13 @@ body.modal-open{
         opacity: 1;
     }
 }
-
-.popup{
-    line-height: 2;
+.dropdown{
+    ul{
+        display: list-item;
+        li{
+            div{
+                padding-right: 3rem !important;
+            }
+        }
+    }
 }
