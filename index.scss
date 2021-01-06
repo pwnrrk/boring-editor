@@ -1,0 +1,102 @@
+@import "./node_modules/@r.phuwanat/minbootstrap/scss/minBootstrap.scss";
+.type-area:focus {
+    border: none;
+    outline: none;
+}
+#line{
+    background-color: darken($color: $dark, $amount: 5);
+}
+#editor{
+    font-family: monospace;
+    *{
+        font-family: monospace;
+    }
+}
+
+#line,#line div{
+    font-family: monospace;
+}
+#editor{
+    white-space: pre;
+}
+body{
+    overflow: hidden;
+}
+body.modal-open{
+    padding-right: 0 !important;
+}
+.filename{
+    padding: 0.5rem;
+    border-radius: $radius;
+    &:focus{
+        @extend input.form-item:focus ;
+    }
+}
+.autosaving{
+    animation: saving 1.3s linear infinite ;
+    display: none;
+    &.showing{
+        display: block;
+    }
+}
+@keyframes saving{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.dropdown{
+    ul{
+        display: list-item;
+        li{
+            padding: 0;
+            div{
+                padding: 0.5rem;
+            }
+            div:hover{
+                background-color: $primary;
+            }
+        }
+    }
+}
+#menubar{
+    table{
+        border-collapse: collapse;
+    }
+    a{
+        tr{
+            :nth-child(odd){
+                @extend .pr-5;
+            }
+        }
+        td{
+            padding: .5rem;
+        }
+        &:hover{
+            text-decoration: none;
+            tr{
+                background-color: $primary;
+            }
+        }
+    }
+}
+@media (min-width:960px){
+    ::-webkit-scrollbar{
+      width: 0.5rem;
+    }
+    ::-webkit-scrollbar-track{
+      background: none;
+    }
+    ::-webkit-scrollbar-thumb{
+      background: lighten($color: $dark, $amount: 20);
+      border-radius: 1rem;
+    }
+    ::-webkit-scrollbar-thumb:hover{
+      background: var(--secondary);
+    }
+  }
