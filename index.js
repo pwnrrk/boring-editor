@@ -92,6 +92,7 @@ import { MenuBar } from "./Controller/MenuBar.js"
      insertTabAtCaret(event)
      overrideCtrlA(event)
      overrideCtrlS(event)
+     overrideCtrlN(event)
     });
 
  function insertTabAtCaret(event) {
@@ -122,6 +123,13 @@ import { MenuBar } from "./Controller/MenuBar.js"
     }
  }
 
+ function overrideCtrlN(event){
+    if(event.key == "n" && event.ctrlKey && event.altKey ){
+        event.preventDefault()
+        openModal("#new-file")
+    }
+ }
+
  //Disable scroll by space bar
  window.onkeydown = function (e) {
      return !(e.keyCode == 32 && e.target == document.body);
@@ -139,3 +147,4 @@ document.getElementById('cut-btn').addEventListener('click',()=>MenuBar.cut())
 document.getElementById('copy-btn').addEventListener('click',()=>MenuBar.copy())
 document.getElementById('paste-btn').addEventListener('click',()=>MenuBar.paste())
 document.getElementById('selectall-btn').addEventListener('click',()=>MenuBar.selectAll())
+document.getElementById('new-btn').addEventListener('click',()=>MenuBar.newFile())

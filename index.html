@@ -8,7 +8,7 @@
 </head>
 
 <body class="bg-dark text-light" spellcheck="false">
-    <nav class="navbar bg-dark navbar-dark shadow">
+    <nav class="navbar bg-dark navbar-dark shadow np">
         <button class="navbar-toggler" data-target="#navbar-col" style="font-size: 1.3rem;">
             <svg data-v-3fe0c21f="" class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false"
                 data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -25,7 +25,7 @@
                     <table class="container-fulid">
                         <tr>
                             <td>
-                                <a id="new-btn">
+                                <a class="dropdown-link" data-toggle="modal" data-target="#new-file">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>New</td>
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a data-target="#save" data-toggle="modal">
+                                <a data-target="#save" data-toggle="modal" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Save</td>
@@ -49,7 +49,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a data-target="#save-as" data-toggle="modal">
+                                <a data-target="#save-as" data-toggle="modal" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Save As</td>
@@ -66,7 +66,7 @@
                     <table class="container-fulid">
                         <tr>
                             <td>
-                                <a id="undo-btn">
+                                <a id="undo-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Undo</td>
@@ -78,7 +78,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a id="redo-btn">
+                                <a id="redo-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Redo</td>
@@ -90,7 +90,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a id="cut-btn">
+                                <a id="cut-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Cut</td>
@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a id="copy-btn">
+                                <a id="copy-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Copy</td>
@@ -114,7 +114,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a id="paste-btn">
+                                <a id="paste-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Paste</td>
@@ -126,7 +126,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <a id="selectall-btn">
+                                <a id="selectall-btn" class="dropdown-link">
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Select All</td>
@@ -141,23 +141,23 @@
                 <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
                 <div class="dropdown bg-dark bd-secondary" id="help">
                     <ul>
-                        <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor/issues" target="_blank">
+                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/issues" target="_blank">
                                 <div>
                                     Report or View issue
                                 </div>
                             </a></li>
-                        <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE"
+                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE"
                                 target="_blank">
                                 <div>
                                     View Licence
                                 </div>
                             </a></li>
-                        <li><a class="text-light" href="https://pwnrrk.github.io" target="_blank">
+                        <li><a class="text-light dropdown-link" href="https://pwnrrk.github.io" target="_blank">
                                 <div>
                                     Contributor
                                 </div>
                             </a></li>
-                        <li><a class="text-light" href="https://github.com/pwnrrk/boring-editor#readme" target="_blank">
+                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor#readme" target="_blank">
                                 <div>
                                     About
                                 </div>
@@ -220,6 +220,23 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal slide modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-header">
+                    <div class="modal-title text-center">New File ?</div>
+                </div>
+                <div class="modal-body">
+                    <h4 class="text-center">This action can't be reverse.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="new-btn">New File</button>
                 </div>
             </div>
         </div>

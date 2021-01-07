@@ -43,6 +43,10 @@ class Menubar {
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
     }
+    newFile(){
+        localStorage.clear()
+        location.reload()
+    }
 };
 
 export const MenuBar = Menubar.prototype
