@@ -1,7 +1,5 @@
 # boring-editor
 ## Text editor  that I create while boring
-### Version
-0.1.0
 ### Release Note
 [Release Note](https://github.com/pwnrrk/boring-editor/releases)
 ### Bugs and Issue

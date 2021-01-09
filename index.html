@@ -29,7 +29,7 @@
                                     <table class="container-fulid">
                                         <tr>
                                             <td>New</td>
-                                            <td class="text-right text-mute">Ctrl+N</td>
+                                            <td class="text-right text-mute">Ctrl+Alt+N</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -152,12 +152,7 @@
                                     View Licence
                                 </div>
                             </a></li>
-                        <li><a class="text-light dropdown-link" href="https://pwnrrk.github.io" target="_blank">
-                                <div>
-                                    Contributor
-                                </div>
-                            </a></li>
-                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor#readme" target="_blank">
+                        <li><a class="text-light dropdown-link" data-toggle="modal" data-target="#about">
                                 <div>
                                     About
                                 </div>
@@ -237,6 +232,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="new-btn">New File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-header">
+                    <div class="modal-title text-center">About</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="text-light">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h3>Version</h3>
+                    <h4 id="version"></h4>
+                    <h3>Release Note</h3>
+                    <h4 id="release-title"></h4>
+                    <p id="release-body"></p>
+                    <a href="https://github.com/pwnrrk/minbootstrap/releases" title="Release Note">Older Release</a>
+                    <h3>Contributor</h3>
+                    <a href="https://pwnrrk.github.io">R.Phuwanat</a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

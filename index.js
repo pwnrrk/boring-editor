@@ -130,6 +130,21 @@ import { MenuBar } from "./Controller/MenuBar.js"
     }
  }
 
+ function getVersion(){
+    let xmlhttp = new XMLHttpRequest()
+    xmlhttp.onreadystatechange = function(){
+        if(this.status == 200 && this.readyState == 4){
+            let res = JSON.parse(this.responseText)
+            document.getElementById('version').innerText = res[0].tag_name
+            document.getElementById('release-title').innerText = res[0].name
+            document.getElementById('release-body').innerText = res[0].body
+        }
+    }
+    xmlhttp.open('GET','https://api.github.com/repos/pwnrrk/boring-editor/releases')
+    xmlhttp.send()
+}
+getVersion()
+
  //Disable scroll by space bar
  window.onkeydown = function (e) {
      return !(e.keyCode == 32 && e.target == document.body);
