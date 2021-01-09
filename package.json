@@ -1,0 +1,24 @@
+{
+  "name": "boring-editor",
+  "version": "1.0.0",
+  "description": "Simple Text Editor",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pwnrrk/boring-editor.git"
+  },
+  "keywords": [
+    "editor"
+  ],
+  "author": "r.phuwanat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pwnrrk/boring-editor/issues"
+  },
+  "homepage": "https://github.com/pwnrrk/boring-editor#readme"
+}
