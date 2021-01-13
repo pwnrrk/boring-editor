@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boring Editor</title>
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-dark.min.css">
+
 </head>
 
 <body class="bg-dark text-light" spellcheck="false">
-    <nav class="navbar bg-dark navbar-dark shadow np">
+    <nav class="navbar navbar-dark np">
         <button class="navbar-toggler" data-target="#navbar-col" style="font-size: 1.3rem;">
             <svg data-v-3fe0c21f="" class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false"
                 data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
@@ -21,7 +23,7 @@
         <div class="navbar-collapse" id="navbar-col">
             <ul class="align-items-center" id="menubar">
                 <li><a class="navbar-link" data-toggle="dropdown" data-target="#file">File</a></li>
-                <div class="dropdown bg-dark bd-secondary" id="file">
+                <div class="dropdown" id="file">
                     <table class="container-fulid">
                         <tr>
                             <td>
@@ -53,7 +55,7 @@
                                     <table class="container-fulid">
                                         <tr>
                                             <td>Save As</td>
-                                            <td class="text-right text-mute">Ctrl+Shift+S</td>
+                                            <td class="text-right text-mute">Ctrl+Alt+S</td>
                                         </tr>
                                     </table>
                                 </a>
@@ -62,7 +64,7 @@
                     </table>
                 </div>
                 <li><a class="navbar-link" data-toggle="dropdown" data-target="#edit">Edit</a></li>
-                <div class="dropdown bg-dark bd-secondary" id="edit">
+                <div class="dropdown" id="edit">
                     <table class="container-fulid">
                         <tr>
                             <td>
@@ -138,16 +140,27 @@
                         </tr>
                     </table>
                 </div>
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
-                <div class="dropdown bg-dark bd-secondary" id="help">
+                <li><a class="navbar-link" data-toggle="dropdown" data-target="#view">View</a></li>
+                <div class="dropdown" id="view">
                     <ul>
-                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/issues" target="_blank">
+                        <li><a class="text-light dropdown-link" id="live-toggler">
+                                <div>
+                                    Toggle HTML Live Demo
+                                </div>
+                            </a></li>
+                    </ul>
+                </div>
+                <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
+                <div class="dropdown" id="help">
+                    <ul>
+                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/issues"
+                                target="_blank">
                                 <div>
                                     Report or View issue
                                 </div>
                             </a></li>
-                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE"
-                                target="_blank">
+                        <li><a class="text-light dropdown-link"
+                                href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE" target="_blank">
                                 <div>
                                     View Licence
                                 </div>
@@ -173,13 +186,27 @@
             </ul>
         </div>
     </nav>
-    <div style="height: 90vh;overflow: auto;width: 100%;cursor:text;" id="wrapper">
+    <div style="height: 95vh;overflow: auto;width: 100%;" id="wrapper">
         <div class="flex" style="width: 100%;">
             <div style="width:fit-content;padding: 0rem 1rem 0rem 1rem;display: flex;flex-direction: column;align-items: flex-end;line-height: 20px;min-height: 100vh;"
                 id="line">
 
             </div>
-            <div contenteditable="true" class="type-area col" style="line-height: 20px;height:100%;" id="editor"></div>
+            <div class="col html" style="height:100%;" id="editor-wrapper">
+                <div id="editor" class="type-area" autofocus contenteditable></div>
+                <div id="cursor"></div>
+                <pre><code id="output" style="padding: 0;"></code></pre>
+            </div>
+            <div class="col live-area" id="live-area">
+                <div class="row nm bg-dark bd-secondary p-1 align-items-center">
+                    <div class="col-10 flex align-items-center">
+                        <h3 class="nm pr-1">HTML Live Demo</h3>
+                        <button class="btn btn-success" id="rerun-btn">Run <b>&blacktriangleright;</b></button>
+                    </div>
+                    <div class="col-2 flex justify-content-end"><button class="btn-close text-light" id="close-live">X</button></div>
+                </div>
+                <iframe frameborder="0" id="live-render"></iframe>
+            </div>
         </div>
     </div>
     <div class="modal slide modal-sm static" id="save" tabindex="-1" role="dialog" aria-labelledby="save"
@@ -236,8 +263,7 @@
             </div>
         </div>
     </div>
-    <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about"
-        aria-hidden="true">
+    <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content bg-dark bd-secondary">
                 <div class="modal-header">
@@ -264,6 +290,7 @@
     </div>
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
 <script src="./index.js" type="module"></script>
 
 </html>
