@@ -5,7 +5,7 @@ class Menubar {
      */
     save() {
         // Convert the text to BLOB.
-        const textToBLOB = new Blob([editor.innerText], { type: 'text/plain' });
+        const textToBLOB = new Blob([output.innerText], { type: 'text/plain' });
         const sFileName = filename.value;	   // The file to save the data.
 
         let newLink = document.createElement("a");

@@ -27,7 +27,8 @@ $dark: #282C34;
     font-weight: 500;
     white-space: pre;
     z-index: 3;
-    color: rgba($color: #ffffff, $alpha: 0.3);
+    color: transparent;
+    caret-color: $blue;
     *{
         font-weight: 500;
     }
@@ -47,6 +48,7 @@ $dark: #282C34;
     width: 100%;
     z-index: 2;
     line-height: 20px;
+    white-space: pre;
 }
 #editor-wrapper{
     position: relative;

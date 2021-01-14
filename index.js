@@ -22,7 +22,7 @@ if (localStorage.getItem('filename')) {
 //Get temp content
 if (localStorage.getItem('tempEditor')) {
     editor.innerHTML = localStorage.getItem('tempEditor')
-    output.innerHTML = editor.innerText
+    output.innerHTML = editor.innerHTML
     linenumber()
 }
 //Set title from file name
@@ -32,7 +32,7 @@ checkFileType()
 hilight()
 //Line numbering Hilighting Autosaving
 editor.addEventListener('keyup', event => {
-    output.innerHTML = editor.innerText
+    output.innerHTML = editor.innerHTML
     hilight()
     linenumber()
     autosave()
@@ -99,8 +99,8 @@ function countLines() {
 
 //Auto save
 function autosave() {
-    localStorage.setItem('tempEditor', editor.innerHTML)
-    localStorage.setItem('tempContent', editor.innerText)
+    localStorage.setItem('tempEditor', output.innerHTML)
+    localStorage.setItem('tempContent', output.innerText)
     setTimeout(() => {
         if (!autosaving.classList.contains('showing')) {
             autosaving.classList.add('showing')
