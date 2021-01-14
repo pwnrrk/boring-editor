@@ -175,4 +175,5 @@ function refresh() {
     displayFolder()
 }
 
+//
 window.addEventListener('load', init)
