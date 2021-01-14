@@ -1,4 +1,3 @@
-import "./minBootstrap.js"
 import { MenuBar } from "./Controller/MenuBar.js"
 
 //Element
