@@ -4,293 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boring Editor</title>
-    <link rel="stylesheet" href="./index.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-dark.min.css">
-
+    <link rel="stylesheet" href="./Style/index.css">
+    <link rel="stylesheet" href="./node_modules/file-icons-js/css/style.css">
 </head>
 
 <body class="bg-dark text-light" spellcheck="false">
-    <nav class="navbar navbar-dark np">
-        <button class="navbar-toggler" data-target="#navbar-col" style="font-size: 1.3rem;">
-            <svg data-v-3fe0c21f="" class="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false"
-                data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-                data-fa-i2svg="" style="width: 100%;">
-                <path fill="currentColor"
-                    d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z">
-                </path>
-            </svg>
-        </button>
-        <div class="navbar-collapse" id="navbar-col">
-            <ul class="align-items-center" id="menubar">
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#file">File</a></li>
-                <div class="dropdown" id="file">
-                    <table class="container-fulid">
-                        <tr>
-                            <td>
-                                <a class="dropdown-link" data-toggle="modal" data-target="#new-file">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>New</td>
-                                            <td class="text-right text-mute">Ctrl+Alt+N</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a data-target="#save" data-toggle="modal" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Save</td>
-                                            <td class="text-right text-mute">Ctrl+S</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a data-target="#save-as" data-toggle="modal" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Save As</td>
-                                            <td class="text-right text-mute">Ctrl+Alt+S</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#edit">Edit</a></li>
-                <div class="dropdown" id="edit">
-                    <table class="container-fulid">
-                        <tr>
-                            <td>
-                                <a id="undo-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Undo</td>
-                                            <td class="text-right text-mute">Ctrl+Z</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a id="redo-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Redo</td>
-                                            <td class="text-right text-mute">Ctrl+Y</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a id="cut-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Cut</td>
-                                            <td class="text-right text-mute">Ctrl+X</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a id="copy-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Copy</td>
-                                            <td class="text-right text-mute">Ctrl+C</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a id="paste-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Paste</td>
-                                            <td class="text-right text-mute">Ctrl+V</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a id="selectall-btn" class="dropdown-link">
-                                    <table class="container-fulid">
-                                        <tr>
-                                            <td>Select All</td>
-                                            <td class="text-right text-mute">Ctrl+A</td>
-                                        </tr>
-                                    </table>
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#view">View</a></li>
-                <div class="dropdown" id="view">
-                    <ul>
-                        <li><a class="text-light dropdown-link" id="live-toggler">
-                                <div>
-                                    Toggle HTML Live Demo
-                                </div>
-                            </a></li>
-                    </ul>
-                </div>
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
-                <div class="dropdown" id="help">
-                    <ul>
-                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/issues"
-                                target="_blank">
-                                <div>
-                                    Report or View issue
-                                </div>
-                            </a></li>
-                        <li><a class="text-light dropdown-link"
-                                href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE" target="_blank">
-                                <div>
-                                    View Licence
-                                </div>
-                            </a></li>
-                        <li><a class="text-light dropdown-link" data-toggle="modal" data-target="#about">
-                                <div>
-                                    About
-                                </div>
-                            </a></li>
-                    </ul>
-            </ul>
-            <ul class="justify-content-end align-items-center">
-                <li>
-                    <div id="autosaving" class="mr-1 autosaving">Auto saving...</div>
-                </li>
-                <li>
-                    <div class="mr-1"><input type="text" class="form-item text-light" placeholder="File name"
-                            id="filename">
+    <div>
+        <nav class="navbar bg-dark shadow navbar-dark">
+            <a href="/minimaleditor" class="navbar-brand">Minimal Editor</a>
+            <button class="navbar-toggler" data-target="#navbar-col">-</button>
+            <div class="navbar-collapse" id="navbar-col">
+                <ul>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="flex container-fulid justify-content-end">
+                <button class="btn btn-primary btn-lg"data-target="#new-popup" data-toggle="popup" style="font-weight:800;">&plus;</button>
+            </div>
+            <div class="popup point" id="new-popup">
+                <a data-toggle="modal" data-target="#new-file" class="text-dark"><div class="p-1">File</div></a>
+                <a data-toggle="modal" data-target="#new-folder" class="text-dark"><div class="p-1">Folder</div></a>
+            </div>
+            <div class="flex mt-1" id="folder-area"></div>
+            <div class="flex mt-1" id="file-area"></div>
+        </div>
+        <div class="modal bonce modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title">New File</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
                     </div>
-                </li>
-                <li><a class="navbar-link active btn btn-primary mr-1" data-target="#save" data-toggle="modal">Save</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div style="height: 95vh;overflow: auto;width: 100%;" id="wrapper">
-        <div class="flex" style="width: 100%;">
-            <div style="width:fit-content;padding: 0rem 1rem 0rem 1rem;display: flex;flex-direction: column;align-items: flex-end;line-height: 20px;min-height: 100vh;"
-                id="line">
-
-            </div>
-            <div class="col html" style="height:100%;" id="editor-wrapper">
-                <div id="editor" class="type-area" autofocus contenteditable></div>
-                <div id="cursor"></div>
-                <code id="output" style="padding: 0;"></code>
-            </div>
-            <div class="col live-area" id="live-area">
-                <div class="row nm bg-dark bd-secondary p-1 align-items-center">
-                    <div class="col-10 flex align-items-center">
-                        <h3 class="nm pr-1">HTML Live Demo</h3>
-                        <button class="btn btn-success" id="rerun-btn">Run <b>&blacktriangleright;</b></button>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="filename" class="form-item-label">File Name</label>
+                            <input type="text" class="form-item text-light" placeholder="File Name" value="untitled.txt"
+                                id="filename">
+                        </div>
                     </div>
-                    <div class="col-2 flex justify-content-end"><button class="btn-close text-light" id="close-live">X</button></div>
-                </div>
-                <iframe frameborder="0" id="live-render"></iframe>
-            </div>
-        </div>
-    </div>
-    <div class="modal slide modal-sm static" id="save" tabindex="-1" role="dialog" aria-labelledby="save"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center"></div>
-                </div>
-                <div class="modal-body">
-                    <h2 class="text-center">Save file?</h2>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-btn">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal slide modal-sm static" id="save-as" tabindex="-1" role="dialog" aria-labelledby="save-as"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">Save as</div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="filename" class="form-item-label">File name</label>
-                        <input type="text" class="form-item text-light" placeholder="File name" id="save-as-filename">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="newfile">OK</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+        <div class="modal bonce modal-sm static" id="new-folder" tabindex="-1" role="dialog"
+            aria-labelledby="new-folder" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title">New Folder</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="filename" class="form-item-label">Folder Name</label>
+                            <input type="text" class="form-item text-light" placeholder="Folder Name" value="New Folder"
+                                id="foldername">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="newfolder">OK</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal slide modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">New File ?</div>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center">This action can't be reverse.</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="new-btn">New File</button>
+        <div class="modal bonce modal-sm static" id="rename" tabindex="-1" role="dialog"
+            aria-labelledby="rename" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title">Rename</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="filename" class="form-item-label">New Name</label>
+                            <input type="text" class="form-item text-light" placeholder="New Name"
+                                id="newname">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename">Save</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">About</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="text-light">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h3>Version</h3>
-                    <h4 id="version"></h4>
-                    <h3>Release Note</h3>
-                    <h4 id="release-title"></h4>
-                    <p id="release-body"></p>
-                    <a href="https://github.com/pwnrrk/boring-editor/releases" title="Release Note">Older Release</a>
-                    <h3>Contributor</h3>
-                    <a href="https://pwnrrk.github.io">R.Phuwanat</a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+        <div class="dropdown menubar" id="context">
+            <table class="container-fulid">
+                <tr>
+                    <td>
+                        <a class="dropdown-link" data-toggle="modal" data-target="#new-file">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>New File</td>
+                                    <td class="text-right text-mute">Ctrl+N</td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link" data-toggle="modal" data-target="#new-Folder">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>New Folder</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link file-context" id="context-open">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Open</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link file-context" id="context-rename" data-target="#rename" data-toggle="modal">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Rename</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link file-context" id="context-copy">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Copy</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link file-context" id="context-move">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Move To</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link file-context" id="context-delete">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Delete</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link" id="context-reload">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Reload</td>
+                                    <td class="text-right text-mute"></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-<script src="./index.js" type="module"></script>
+<script src="./App/index.js" type="module"></script>
 
 </html>

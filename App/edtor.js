@@ -9,24 +9,21 @@ const filename = document.getElementById('filename')
 const autosaving = document.getElementById('autosaving')
 const liveArea = document.getElementById('live-area')
 const liveRender = document.getElementById('live-render')
+const url = new URLSearchParams(window.location.search)
 
 //Set default file name
-filename.value = 'untitled.txt'
+filename.innerText = url.get('file')
+let files = JSON.parse(localStorage.getItem('files'))
+let index =  files.files.findIndex(x=> x.name == filename.innerText)
 
-linenumber()
-
-//Get temp file name
-if (localStorage.getItem('filename')) {
-    filename.value = localStorage.getItem('filename')
-}
 //Get temp content
-if (localStorage.getItem('tempEditor')) {
-    editor.innerHTML = localStorage.getItem('tempEditor')
+if(files.files[index].editor){
+    editor.innerHTML = files.files[index].editor
     output.innerHTML = editor.innerHTML
-    linenumber()
 }
+linenumber()
 //Set title from file name
-document.title = filename.value
+document.title = filename.innerText
 //Check file type and hilight
 checkFileType()
 hilight()
@@ -48,12 +45,11 @@ editor.addEventListener('focusin', event => {
 })
 editor.addEventListener('blur',hilight)
 
-//Save file name to temp
-filename.addEventListener('input', event => {
-    localStorage.setItem('filename', filename.value)
-    document.title = filename.value
-    checkFileType()
-})
+//local storageSave
+function saveFiles(){
+    localStorage.setItem('files',JSON.stringify(files))
+    saving()
+}
 
 //Hilight syntax Feature
 function hilight() {
@@ -62,7 +58,7 @@ function hilight() {
 
 //Check file type
 function checkFileType() {
-    let fil = filename.value.split('.')
+    let fil = filename.innerText.split('.')
     let type = fil[fil.length - 1]
     output.setAttribute('class', type)
 }
@@ -99,8 +95,12 @@ function countLines() {
 
 //Auto save
 function autosave() {
-    localStorage.setItem('tempEditor', output.innerHTML)
-    localStorage.setItem('tempContent', output.innerText)
+    files.files[index].editor =  output.innerHTML
+    files.files[index].content = output.innerText
+    saveFiles()
+}
+
+function saving(){
     setTimeout(() => {
         if (!autosaving.classList.contains('showing')) {
             autosaving.classList.add('showing')
@@ -140,7 +140,6 @@ window.addEventListener("keydown", event => {
     insertTabAtCaret(event)
     overrideCtrlA(event)
     overrideCtrlS(event)
-    overrideCtrlN(event)
 });
 
 function insertTabAtCaret(event) {
@@ -172,13 +171,6 @@ function overrideCtrlS(event) {
     else if (event.key == "s" && event.ctrlKey) {
         event.preventDefault()
         openModal("#save")
-    }
-}
-
-function overrideCtrlN(event) {
-    if (event.key == "n" && event.ctrlKey && event.altKey) {
-        event.preventDefault()
-        openModal("#new-file")
     }
 }
 
@@ -215,7 +207,6 @@ document.getElementById('cut-btn').addEventListener('click', () => MenuBar.cut()
 document.getElementById('copy-btn').addEventListener('click', () => MenuBar.copy())
 document.getElementById('paste-btn').addEventListener('click', () => MenuBar.paste())
 document.getElementById('selectall-btn').addEventListener('click', () => MenuBar.selectAll())
-document.getElementById('new-btn').addEventListener('click', () => MenuBar.newFile())
 document.getElementById('live-toggler').addEventListener('click', () => toggleLive())
 document.getElementById('close-live').addEventListener('click', () => toggleLive())
 document.getElementById('rerun-btn').addEventListener('click', () => runLive())

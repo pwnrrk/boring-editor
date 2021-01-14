@@ -6,7 +6,7 @@ class Menubar {
     save() {
         // Convert the text to BLOB.
         const textToBLOB = new Blob([output.innerText], { type: 'text/plain' });
-        const sFileName = filename.value;	   // The file to save the data.
+        const sFileName = filename.innerText;	   // The file to save the data.
 
         let newLink = document.createElement("a");
         newLink.download = sFileName;
@@ -42,10 +42,6 @@ class Menubar {
         range.selectNode(editor);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
-    }
-    newFile(){
-        localStorage.clear()
-        location.reload()
     }
 };
 
