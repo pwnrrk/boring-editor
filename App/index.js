@@ -1,5 +1,5 @@
 import { File } from "./Controller/File.js"
-import { getClassWithColor } from "../node_modules/file-icons-js/index.js"
+import { getClassWithColor } from "../file-icons-js/index.js"
 import { Folder } from "./Controller/Folder.js"
 
 //For First Run
