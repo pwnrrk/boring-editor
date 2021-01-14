@@ -1,6 +1,6 @@
 {
   "name": "boring-editor",
-  "version": "1.1.1",
+  "version": "2.0.1",
   "description": "Simple Text Editor",
   "main": "index.js",
   "dependencies": {
