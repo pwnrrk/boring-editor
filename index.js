@@ -55,7 +55,7 @@ filename.addEventListener('input', event => {
     checkFileType()
 })
 
-//Hilight syntax
+//Hilight syntax Feature
 function hilight() {
     hljs.highlightBlock(output);
 }
