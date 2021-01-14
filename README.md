@@ -1,5 +1,5 @@
-# boring-editor
-## Text editor  that I create while boring
+# Minimal Editor
+## Minimal Online Text editor
 ### Release Note
 [Release Note](https://github.com/pwnrrk/boring-editor/releases)
 ### Bugs and Issue
