@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boring Editor</title>
+    <title>Minimal Editor</title>
     <link rel="stylesheet" href="./Style/index.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-dark.min.css">
 
 </head>
@@ -165,7 +167,9 @@
                     <div id="autosaving" class="mr-1 autosaving">Auto saving...</div>
                 </li>
                 <li>
-                    <div class="mr-1" ><h4 class="nm" id="filename"></h4></div>
+                    <div class="mr-1">
+                        <h4 class="nm" id="filename"></h4>
+                    </div>
                 </li>
                 <li><a class="navbar-link active btn btn-primary mr-1" data-target="#save" data-toggle="modal">Save</a>
                 </li>
@@ -188,7 +192,8 @@
                         <h3 class="nm pr-1">HTML Live Demo</h3>
                         <button class="btn btn-success" id="rerun-btn">Run <b>&blacktriangleright;</b></button>
                     </div>
-                    <div class="col-2 flex justify-content-end"><button class="btn-close text-light" id="close-live">X</button></div>
+                    <div class="col-2 flex justify-content-end"><button class="btn-close text-light"
+                            id="close-live">X</button></div>
                 </div>
                 <iframe frameborder="0" id="live-render"></iframe>
             </div>
@@ -272,6 +277,82 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="dropdown menubar" id="context">
+        <table class="container-fulid">
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-undo">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Undo</td>
+                                <td class="text-right text-mute">Ctrl+Z</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-redo">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Redo</td>
+                                <td class="text-right text-mute">Ctrl+Y</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-cut">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Cut</td>
+                                <td class="text-right text-mute">Ctrl+X</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-copy">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Copy</td>
+                                <td class="text-right text-mute">Ctrl+C</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-paste">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Paste</td>
+                                <td class="text-right text-mute">Ctrl+V</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a class="dropdown-link" id="context-selectall">
+                        <table class="container-fulid">
+                            <tr>
+                                <td>Select All</td>
+                                <td class="text-right text-mute">Ctrl+A</td>
+                            </tr>
+                        </table>
+                    </a>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>

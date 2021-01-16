@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boring Editor</title>
+    <title>Minimal Editor</title>
     <link rel="stylesheet" href="./Style/index.css">
     <link rel="stylesheet" href="./file-icons-js/css/style.css">
 </head>
@@ -15,16 +15,42 @@
             <button class="navbar-toggler" data-target="#navbar-col">-</button>
             <div class="navbar-collapse" id="navbar-col">
                 <ul>
+                    <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
+                    <div class="dropdown" id="help">
+                        <ul>
+                            <li><a class="text-light dropdown-link"
+                                    href="https://github.com/pwnrrk/boring-editor/issues" target="_blank">
+                                    <div>
+                                        Report or View issue
+                                    </div>
+                                </a></li>
+                            <li><a class="text-light dropdown-link"
+                                    href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE" target="_blank">
+                                    <div>
+                                        View Licence
+                                    </div>
+                                </a></li>
+                            <li><a class="text-light dropdown-link" data-toggle="modal" data-target="#about">
+                                    <div>
+                                        About
+                                    </div>
+                                </a></li>
+                        </ul>
                 </ul>
             </div>
         </nav>
         <div class="container">
             <div class="flex container-fulid justify-content-end">
-                <button class="btn btn-primary btn-lg"data-target="#new-popup" data-toggle="popup" style="font-weight:800;">&plus;</button>
+                <button class="btn btn-primary btn-lg" data-target="#new-popup" data-toggle="popup"
+                    style="font-weight:800;">&plus;</button>
             </div>
             <div class="popup point" id="new-popup">
-                <a data-toggle="modal" data-target="#new-file" class="text-dark"><div class="p-1">File</div></a>
-                <a data-toggle="modal" data-target="#new-folder" class="text-dark"><div class="p-1">Folder</div></a>
+                <a data-toggle="modal" data-target="#new-file" class="text-dark">
+                    <div class="p-1">File</div>
+                </a>
+                <a data-toggle="modal" data-target="#new-folder" class="text-dark">
+                    <div class="p-1">Folder</div>
+                </a>
             </div>
             <div class="flex mt-1" id="folder-area"></div>
             <div class="flex mt-1" id="file-area"></div>
@@ -42,8 +68,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="filename" class="form-item-label">File Name</label>
-                            <input type="text" class="form-item text-light" placeholder="File Name" value="untitled.txt"
-                                id="filename">
+                            <input type="text" class="form-item text-light" placeholder="File Name" id="filename">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -66,8 +91,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="filename" class="form-item-label">Folder Name</label>
-                            <input type="text" class="form-item text-light" placeholder="Folder Name" value="New Folder"
-                                id="foldername">
+                            <input type="text" class="form-item text-light" placeholder="Folder Name" id="foldername">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -77,8 +101,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="rename" tabindex="-1" role="dialog"
-            aria-labelledby="rename" aria-hidden="true">
+        <div class="modal bonce modal-sm static" id="rename" tabindex="-1" role="dialog" aria-labelledby="rename"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content bg-dark bd-secondary">
                     <div class="modal-header">
@@ -90,8 +114,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="filename" class="form-item-label">New Name</label>
-                            <input type="text" class="form-item text-light" placeholder="New Name"
-                                id="newname">
+                            <input type="text" class="form-item text-light" placeholder="New Name" id="newname">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -105,7 +128,19 @@
             <table class="container-fulid">
                 <tr>
                     <td>
-                        <a class="dropdown-link" data-toggle="modal" data-target="#new-file">
+                        <a class="dropdown-link context-item" id="context-back">
+                            <table class="container-fulid">
+                                <tr>
+                                    <td>Back</td>
+                                    <td class="text-right text-mute">Alt+Left</td>
+                                </tr>
+                            </table>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a class="dropdown-link context-item" data-toggle="modal" data-target="#new-file">
                             <table class="container-fulid">
                                 <tr>
                                     <td>New File</td>
@@ -117,7 +152,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link" data-toggle="modal" data-target="#new-Folder">
+                        <a class="dropdown-link context-item" data-toggle="modal" data-target="#new-Folder">
                             <table class="container-fulid">
                                 <tr>
                                     <td>New Folder</td>
@@ -129,7 +164,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link file-context" id="context-open">
+                        <a class="dropdown-link context-item file-context" id="context-open">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Open</td>
@@ -141,7 +176,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link file-context" id="context-rename" data-target="#rename" data-toggle="modal">
+                        <a class="dropdown-link context-item file-context" id="context-rename" data-target="#rename"
+                            data-toggle="modal">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Rename</td>
@@ -153,7 +189,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link file-context" id="context-copy">
+                        <a class="dropdown-link context-item file-context" id="context-copy">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Copy</td>
@@ -165,7 +201,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link file-context" id="context-move">
+                        <a class="dropdown-link context-item file-context" id="context-move">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Move To</td>
@@ -177,7 +213,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link file-context" id="context-delete">
+                        <a class="dropdown-link context-item file-context" id="context-delete" data-target="#delete" data-toggle="modal">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Delete</td>
@@ -189,7 +225,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link" id="context-reload">
+                        <a class="dropdown-link context-item" id="context-reload">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Reload</td>
@@ -201,9 +237,76 @@
                 </tr>
             </table>
         </div>
+        <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title text-center">About</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h3>Version</h3>
+                        <h4 id="version"></h4>
+                        <h3>Release Note</h3>
+                        <h4 id="release-title"></h4>
+                        <p id="release-body"></p>
+                        <a href="https://github.com/pwnrrk/boring-editor/releases" title="Release Note">Older
+                            Release</a>
+                        <h3>Contributor</h3>
+                        <a href="https://pwnrrk.github.io">R.Phuwanat</a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal bonce modal-sm static" id="moveto" tabindex="-1" role="dialog" aria-labelledby="moveto"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title">Select Folder</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename">Move</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal bonce modal-sm static" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content bg-dark bd-secondary">
+                    <div class="modal-header">
+                        <div class="modal-title">Delete <span id="delete-title"></span> ?</div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        This can't be reverse.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="delete-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
+<script src="./node_modules/@r.phuwanat/minbootstrap/js/minBootstrap.min.js"></script>
 <script src="./App/index.js" type="module"></script>
 
 </html>

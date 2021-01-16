@@ -9,15 +9,22 @@ const filename = document.getElementById('filename')
 const autosaving = document.getElementById('autosaving')
 const liveArea = document.getElementById('live-area')
 const liveRender = document.getElementById('live-render')
+const context = document.getElementById('context')
 const url = new URLSearchParams(window.location.search)
+
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault()
+    context.classList.add('showing')
+    context.setAttribute('style', `top:${event.y}px;left:${event.x}px`)
+})
 
 //Set default file name
 filename.innerText = url.get('file')
 let files = JSON.parse(localStorage.getItem('files'))
-let index =  files.files.findIndex(x=> x.name == filename.innerText)
+let index = files.files.findIndex(x => x.name == filename.innerText)
 
 //Get temp content
-if(files.files[index].editor){
+if (files.files[index].editor) {
     editor.innerHTML = files.files[index].editor
     output.innerHTML = editor.innerHTML
 }
@@ -43,11 +50,11 @@ editor.addEventListener('focusin', event => {
         range.setStartAfter(newLine);
     }
 })
-editor.addEventListener('blur',hilight)
+editor.addEventListener('blur', hilight)
 
 //local storageSave
-function saveFiles(){
-    localStorage.setItem('files',JSON.stringify(files))
+function saveFiles() {
+    localStorage.setItem('files', JSON.stringify(files))
     saving()
 }
 
@@ -95,12 +102,12 @@ function countLines() {
 
 //Auto save
 function autosave() {
-    files.files[index].editor =  output.innerHTML
+    files.files[index].editor = output.innerHTML
     files.files[index].content = output.innerText
     saveFiles()
 }
 
-function saving(){
+function saving() {
     setTimeout(() => {
         if (!autosaving.classList.contains('showing')) {
             autosaving.classList.add('showing')
@@ -209,4 +216,14 @@ document.getElementById('paste-btn').addEventListener('click', () => MenuBar.pas
 document.getElementById('selectall-btn').addEventListener('click', () => MenuBar.selectAll())
 document.getElementById('live-toggler').addEventListener('click', () => toggleLive())
 document.getElementById('close-live').addEventListener('click', () => toggleLive())
+
+//Context
+document.getElementById('context-undo').addEventListener('click', () => MenuBar.undo())
+document.getElementById('context-redo').addEventListener('click', () => MenuBar.redo())
+document.getElementById('context-cut').addEventListener('click', () => MenuBar.cut())
+document.getElementById('context-copy').addEventListener('click', () => MenuBar.copy())
+document.getElementById('context-paste').addEventListener('click', () => MenuBar.paste())
+document.getElementById('context-selectall').addEventListener('click', () => MenuBar.selectAll())
+
+//Other
 document.getElementById('rerun-btn').addEventListener('click', () => runLive())
