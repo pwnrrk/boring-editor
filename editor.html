@@ -140,27 +140,6 @@
                             </a></li>
                     </ul>
                 </div>
-                <li><a class="navbar-link" data-toggle="dropdown" data-target="#help">Help</a></li>
-                <div class="dropdown" id="help">
-                    <ul>
-                        <li><a class="text-light dropdown-link" href="https://github.com/pwnrrk/boring-editor/issues"
-                                target="_blank">
-                                <div>
-                                    Report or View issue
-                                </div>
-                            </a></li>
-                        <li><a class="text-light dropdown-link"
-                                href="https://github.com/pwnrrk/boring-editor/blob/master/LICENSE" target="_blank">
-                                <div>
-                                    View Licence
-                                </div>
-                            </a></li>
-                        <li><a class="text-light dropdown-link" data-toggle="modal" data-target="#about">
-                                <div>
-                                    About
-                                </div>
-                            </a></li>
-                    </ul>
             </ul>
             <ul class="justify-content-end align-items-center">
                 <li>
@@ -207,73 +186,11 @@
                     <div class="modal-title text-center"></div>
                 </div>
                 <div class="modal-body">
-                    <h2 class="text-center">Save file?</h2>
+                    <h2 class="text-center">Save file to machine?</h2>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal" id="save-btn">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal slide modal-sm static" id="save-as" tabindex="-1" role="dialog" aria-labelledby="save-as"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">Save as</div>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="filename" class="form-item-label">File name</label>
-                        <input type="text" class="form-item text-light" placeholder="File name" id="save-as-filename">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal slide modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">New File ?</div>
-                </div>
-                <div class="modal-body">
-                    <h4 class="text-center">This action can't be reverse.</h4>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="new-btn">New File</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
-                <div class="modal-header">
-                    <div class="modal-title text-center">About</div>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" class="text-light">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h3>Version</h3>
-                    <h4 id="version"></h4>
-                    <h3>Release Note</h3>
-                    <h4 id="release-title"></h4>
-                    <p id="release-body"></p>
-                    <a href="https://github.com/pwnrrk/boring-editor/releases" title="Release Note">Older Release</a>
-                    <h3>Contributor</h3>
-                    <a href="https://pwnrrk.github.io">R.Phuwanat</a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

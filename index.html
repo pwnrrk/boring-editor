@@ -40,20 +40,27 @@
             </div>
         </nav>
         <div class="container">
-            <div class="flex container-fulid justify-content-end">
-                <button class="btn btn-primary btn-lg" data-target="#new-popup" data-toggle="popup"
-                    style="font-weight:800;">&plus;</button>
+            <h3>Directory <span id="path" class="bg-purple pl-2 pr-2 rounded shadow"></span>
+                <div class="row p-1">
+                    <div class="bg-secondary" style="height: 1px;"></div>
+                </div>
+            </h3>
+            <div class="p-1 m-1">
+                <div class="flex container-fulid justify-content-end">
+                    <button class="btn btn-primary btn-lg" data-target="#new-popup" data-toggle="popup"
+                        style="font-weight:800;">&plus;</button>
+                </div>
+                <div class="popup point" id="new-popup">
+                    <a data-toggle="modal" data-target="#new-file" class="text-dark">
+                        <div class="p-1">File</div>
+                    </a>
+                    <a data-toggle="modal" data-target="#new-folder" class="text-dark">
+                        <div class="p-1">Folder</div>
+                    </a>
+                </div>
+                <div class="flex mt-1" id="folder-area"></div>
+                <div class="flex mt-1" id="file-area"></div>
             </div>
-            <div class="popup point" id="new-popup">
-                <a data-toggle="modal" data-target="#new-file" class="text-dark">
-                    <div class="p-1">File</div>
-                </a>
-                <a data-toggle="modal" data-target="#new-folder" class="text-dark">
-                    <div class="p-1">Folder</div>
-                </a>
-            </div>
-            <div class="flex mt-1" id="folder-area"></div>
-            <div class="flex mt-1" id="file-area"></div>
         </div>
         <div class="modal bonce modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
             aria-hidden="true">
@@ -119,7 +126,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename-btn">Save</button>
                     </div>
                 </div>
             </div>
@@ -213,7 +220,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link context-item file-context" id="context-delete" data-target="#delete" data-toggle="modal">
+                        <a class="dropdown-link context-item file-context" id="context-delete" data-target="#delete"
+                            data-toggle="modal">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Delete</td>
@@ -298,7 +306,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="delete-btn">Delete</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            id="delete-btn">Delete</button>
                     </div>
                 </div>
             </div>

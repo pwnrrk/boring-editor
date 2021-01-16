@@ -2,57 +2,42 @@ import { File } from "./Controller/File.js"
 import { getClassWithColor } from "../file-icons-js/index.js"
 import { Folder } from "./Controller/Folder.js"
 import { ObjectHelper } from "./Helper/Object.helper.js"
+import { App } from "./Controller/App.js"
+import { Files } from "./Model/Files.js"
+import { Folders } from "./Model/Folders.js"
 
 const url = new URLSearchParams(window.location.search)
 
-let activeFolder = 0
+let activeFolder = url.get('folder') ?? 0
 
-if (url.get('folder')) {
-    activeFolder = url.get('folder')
-    document.title = `Minimal Editor - ${ObjectHelper.find('id', activeFolder, Folder.get().folders).name}`
+document.getElementById('path').innerText = App.getPath(activeFolder)
+
+if (!App.isIntit()) {
+    App.init()
 }
 
-//For First Run
-let files = {
-    files: [{
-        id: 0,
-        name: '',
-        editor: '',
-        content: '',
-        parent: 0,
-    }]
-}
-if (!localStorage.getItem('files')) {
-    localStorage.setItem('files', JSON.stringify(files))
+let files = Files
+let folders = Folders
+
+const controller = {
+    folder: Folder,
+    file: File
 }
 
-if (JSON.parse(localStorage.getItem('files')).files.length < 1) {
-    localStorage.setItem('files', JSON.stringify(files))
-}
+window.addEventListener('load', init)
 
-let folders = {
-    folders: [{
-        id: 0,
-        name: '',
-        parent: 0
-    }]
-}
-
-if (!localStorage.getItem('folders')) {
-    localStorage.setItem('folders', JSON.stringify(folders))
-}
-
-if (JSON.parse(localStorage.getItem('folders')).folders.length < 1) {
-    localStorage.setItem('folders', JSON.stringify(folders))
-}
-
-function init() {
-    getVersion()
+async function init() {
     files = File.get()
     folders = Folder.get()
     displayFile()
     displayFolder()
     contextOverride()
+
+    await App.getVersion().then(res => {
+        document.getElementById('version').innerText = res[0].tag_name
+        document.getElementById('release-title').innerText = res[0].name
+        document.getElementById('release-body').innerText = res[0].body
+    })
 
     //Button
     document.getElementById('newfile').addEventListener('click', newfile)
@@ -70,15 +55,20 @@ function init() {
     })
     document.getElementById('newfolder').addEventListener('click', newFolder)
     document.getElementById('delete-btn').addEventListener('click', () => {
-        if (contextItem.type == 'file') {
-            File.delete(contextItem.id, activeFolder)
-        } else {
-            //TODO Alert Not Empty
-            Folder.delete(contextItem.id, activeFolder)
-        }
+        controller[contextItem.type].delete(contextItem.id)
         refresh()
     })
-    //TODO Rename btn
+    document.getElementById('rename-btn').addEventListener('click', () => {
+        controller[contextItem.type].rename(contextItem.id, document.getElementById('newname').value)
+        refresh()
+    })
+    document.getElementById('newname').addEventListener('keyup', (e) => {
+        if (e.key == 'Enter' && e.target.value != '') {
+            controller[contextItem.type].rename(contextItem.id, document.getElementById('newname').value)
+            refresh()
+            closeModal()
+        }
+    })
 
 }
 
@@ -121,6 +111,7 @@ function contextOverride() {
     document.getElementById('context-rename').addEventListener('click', () => {
         document.getElementById('newname').value = contextItem.name
     })
+    document.getElementById('context-open').addEventListener('click',()=>controller[contextItem.type].open(contextItem.id))
 }
 
 //New Folder
@@ -136,7 +127,7 @@ function newFolder() {
 //Display File
 function displayFile() {
     document.getElementById('file-area').innerHTML = ''
-    let fileInDir = ObjectHelper.filter('parent', '=', activeFolder, files.files)
+    let fileInDir = ObjectHelper.filter('parent', '=', activeFolder, files)
     fileInDir.forEach(file => {
         if (file.name != "") {
             let button = document.createElement('button')
@@ -146,7 +137,7 @@ function displayFile() {
             button.dataset.id = file.id
             button.dataset.name = file.name
             button.dataset.type = 'file'
-            button.addEventListener('dblclick', () => File.open(file.name))
+            button.addEventListener('dblclick', () => File.open(button.dataset.id))
             document.getElementById('file-area').append(button)
         }
     });
@@ -182,10 +173,10 @@ function setDragElement(element = document.createElement()) {
         document.querySelectorAll('.folder-item').forEach(e => {
             if (e == event.target || e.contains(event.target)) {
                 if (draggingElement.dataset.type == 'file') {
-                    files.files[ObjectHelper.findIndex('id', draggingElement.dataset.id, files.files)].parent = e.dataset.id
+                    files[ObjectHelper.findIndex('id', draggingElement.dataset.id, files)].parent = e.dataset.id
                     File.update(files)
                 } else {
-                    folders.folders[ObjectHelper.findIndex('id', draggingElement.dataset.id, folders.folders)].parent = e.dataset.id
+                    folders[ObjectHelper.findIndex('id', draggingElement.dataset.id, folders)].parent = e.dataset.id
                     Folder.update(folders)
                 }
                 e.classList.remove('dragover')
@@ -199,7 +190,7 @@ function setDragElement(element = document.createElement()) {
 
 function displayFolder() {
     document.getElementById('folder-area').innerHTML = ""
-    let folderInDir = ObjectHelper.filter('parent', '=', activeFolder, folders.folders)
+    let folderInDir = ObjectHelper.filter('parent', '=', activeFolder, folders)
     folderInDir.forEach(folder => {
         if (folder.name != "") {
             let button = document.createElement('button')
@@ -209,7 +200,7 @@ function displayFolder() {
             button.dataset.name = folder.name
             button.dataset.type = 'folder'
             setDragElement(button)
-            button.addEventListener('dblclick', () => window.location.href = `?folder=${button.dataset.id}`)
+            button.addEventListener('dblclick', () => Folder.open(button.dataset.id))
             document.getElementById('folder-area').append(button)
         }
     });
@@ -256,20 +247,3 @@ function refresh() {
     displayFile()
     displayFolder()
 }
-
-function getVersion() {
-    let xmlhttp = new XMLHttpRequest()
-    xmlhttp.onreadystatechange = function () {
-        if (this.status == 200 && this.readyState == 4) {
-            let res = JSON.parse(this.responseText)
-            document.getElementById('version').innerText = res[0].tag_name
-            document.getElementById('release-title').innerText = res[0].name
-            document.getElementById('release-body').innerText = res[0].body
-        }
-    }
-    xmlhttp.open('GET', 'https://api.github.com/repos/pwnrrk/boring-editor/releases')
-    xmlhttp.send()
-}
-
-//
-init()

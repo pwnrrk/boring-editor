@@ -18,14 +18,16 @@ document.addEventListener('contextmenu', (event) => {
     context.setAttribute('style', `top:${event.y}px;left:${event.x}px`)
 })
 
-//Set default file name
-filename.innerText = url.get('file')
+
 let files = JSON.parse(localStorage.getItem('files'))
-let index = files.files.findIndex(x => x.name == filename.innerText)
+let file = files.find(x => x.id == url.get('file'))
+//Set default file name
+filename.innerText = file.name
+let index = files.findIndex(x => x.id == file.id)
 
 //Get temp content
-if (files.files[index].editor) {
-    editor.innerHTML = files.files[index].editor
+if (files[index].editor) {
+    editor.innerHTML = files[index].editor
     output.innerHTML = editor.innerHTML
 }
 linenumber()
@@ -102,8 +104,8 @@ function countLines() {
 
 //Auto save
 function autosave() {
-    files.files[index].editor = output.innerHTML
-    files.files[index].content = output.innerText
+    files[index].editor = output.innerHTML
+    files[index].content = output.innerText
     saveFiles()
 }
 
@@ -124,12 +126,12 @@ function toggleLive() {
         liveRender.src = ''
     } else {
         liveArea.classList.add('showing')
-        liveRender.src = `live.html?file=${files.files[index].id}`
+        liveRender.src = `live.html?file=${files[index].id}`
     }
 }
 
 function runLive() {
-    liveRender.src = `live.html?file=${files.files[index].id}`
+    liveRender.src = `live.html?file=${files[index].id}`
 }
 
 //Send user to editor
@@ -180,22 +182,6 @@ function overrideCtrlS(event) {
         openModal("#save")
     }
 }
-
-function getVersion() {
-    let xmlhttp = new XMLHttpRequest()
-    xmlhttp.onreadystatechange = function () {
-        if (this.status == 200 && this.readyState == 4) {
-            let res = JSON.parse(this.responseText)
-            document.getElementById('version').innerText = res[0].tag_name
-            document.getElementById('release-title').innerText = res[0].name
-            document.getElementById('release-body').innerText = res[0].body
-        }
-    }
-    xmlhttp.open('GET', 'https://api.github.com/repos/pwnrrk/boring-editor/releases')
-    xmlhttp.send()
-}
-
-getVersion()
 
 //Disable scroll by space bar
 window.onkeydown = function (e) {
