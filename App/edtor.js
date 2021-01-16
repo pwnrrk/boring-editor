@@ -124,12 +124,12 @@ function toggleLive() {
         liveRender.src = ''
     } else {
         liveArea.classList.add('showing')
-        liveRender.src = 'live.html'
+        liveRender.src = `live.html?file=${files.files[index].id}`
     }
 }
 
 function runLive() {
-    liveRender.src = 'live.html'
+    liveRender.src = `live.html?file=${files.files[index].id}`
 }
 
 //Send user to editor
