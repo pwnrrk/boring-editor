@@ -1,4 +1,4 @@
-export default ObjectHelper = {
+export const ObjectHelper = {
 
     /**
      * Sort Array of Object by Key.
