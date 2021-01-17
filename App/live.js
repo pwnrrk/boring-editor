@@ -31,14 +31,13 @@ const type = {
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
         <div id="console"><h3>Output:</h3></div>
-        <script>
-                ${content}
-        </script>
         `)
         const consoleElment = document.getElementById('console')
         Console.init(consoleElment)
         document.body.style.overflow = 'auto'
         document.body.classList.add('bg-dark')
+        const code = content
+        setTimeout(code,1)
     }
 }
 window.addEventListener('load', type[url.get('type')])
