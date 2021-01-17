@@ -10,7 +10,7 @@
 
 <body class="bg-dark text-light" spellcheck="false">
     <div>
-        <nav class="navbar bg-dark shadow navbar-dark">
+        <nav class="navbar bg-dark navbar-dark">
             <a href="/minimaleditor" class="navbar-brand">Minimal Editor</a>
             <button class="navbar-toggler" data-target="#navbar-col">-</button>
             <div class="navbar-collapse" id="navbar-col">
@@ -40,14 +40,14 @@
             </div>
         </nav>
         <div class="container">
-            <h3>Directory <span id="path" class="bg-purple pl-2 pr-2 rounded shadow"></span>
+            <h3>Directory <span id="path" class="bg-primary pl-2 pr-2 rounded shadow"></span>
                 <div class="row p-1">
                     <div class="bg-secondary" style="height: 1px;"></div>
                 </div>
             </h3>
-            <div class="p-1 m-1">
+            <div class="p-1 m-1 shadow bg-secondary rounded">
                 <div class="flex container-fulid justify-content-end">
-                    <button class="btn btn-primary btn-lg" data-target="#new-popup" data-toggle="popup"
+                    <button class="btn btn-primary shadow btn-lg" data-target="#new-popup" data-toggle="popup"
                         style="font-weight:800;">&plus;</button>
                 </div>
                 <div class="popup point" id="new-popup">
@@ -65,7 +65,7 @@
         <div class="modal bonce modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title">New File</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -88,7 +88,7 @@
         <div class="modal bonce modal-sm static" id="new-folder" tabindex="-1" role="dialog"
             aria-labelledby="new-folder" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title">New Folder</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -111,7 +111,7 @@
         <div class="modal bonce modal-sm static" id="rename" tabindex="-1" role="dialog" aria-labelledby="rename"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title">Rename</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -199,7 +199,7 @@
                         <a class="dropdown-link context-item file-context" id="context-copy">
                             <table class="container-fulid">
                                 <tr>
-                                    <td>Copy</td>
+                                    <td>Copy To</td>
                                     <td class="text-right text-mute"></td>
                                 </tr>
                             </table>
@@ -208,7 +208,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <a class="dropdown-link context-item file-context" id="context-move">
+                        <a class="dropdown-link context-item file-context" id="context-move" data-target="#moveto" data-toggle="modal">
                             <table class="container-fulid">
                                 <tr>
                                     <td>Move To</td>
@@ -247,7 +247,7 @@
         </div>
         <div class="modal slide" id="about" tabindex="-1" role="dialog" aria-labelledby="about" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title text-center">About</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -274,19 +274,20 @@
         <div class="modal bonce modal-sm static" id="moveto" tabindex="-1" role="dialog" aria-labelledby="moveto"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
-                        <div class="modal-title">Select Folder</div>
+                        <div class="modal-title">Move To</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="text-light">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
-
+                        <button class="btn btn-primary" id="moveto-back" style="font-size: 16px;"></button>
+                        <div id="moveto-body"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename">Move</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="move-btn">Move</button>
                     </div>
                 </div>
             </div>
@@ -294,7 +295,7 @@
         <div class="modal bonce modal-sm static" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark bd-secondary">
+                <div class="modal-content">
                     <div class="modal-header">
                         <div class="modal-title">Delete <span id="delete-title"></span> ?</div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -313,8 +314,9 @@
             </div>
         </div>
     </div>
-</body>
-<script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
+</body><!-- 
+<script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script> -->
+<script src="./node_modules/@r.phuwanat/minbootstrap/js/minBootstrap.min.js"></script>
 <script src="./App/index.js" type="module"></script>
 
 </html>

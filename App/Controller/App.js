@@ -17,13 +17,15 @@ export const App = {
     },
 
     getVersion() {
-        let connect = new Promise((resolve, reject) => {
+        const connect = new Promise((resolve, reject) => {
             let xmlhttp = new XMLHttpRequest()
             xmlhttp.onreadystatechange = function () {
                 if (this.status == 200 && this.readyState == 4) {
                     let res = JSON.parse(this.responseText)
                     localStorage.setItem('version', JSON.stringify({ tag_name: res[0].tag_name, name: res[0].name, body: res[0].body }))
                     resolve(res)
+                }else if(this.readyState == 4){
+                    reject(`${this.status},${this.responseText}`)
                 }
             }
             xmlhttp.open('GET', 'https://api.github.com/repos/pwnrrk/minimaleditor/releases')

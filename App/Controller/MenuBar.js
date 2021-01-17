@@ -39,7 +39,8 @@ class Menubar {
     }
     selectAll(){
         var range = document.createRange();
-        range.selectNode(editor);
+        range.setStartBefore(editor.childNodes.item(0))
+        range.setEndAfter(editor.lastChild);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
     }

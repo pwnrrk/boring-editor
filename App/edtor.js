@@ -37,7 +37,7 @@ document.title = filename.innerText
 checkFileType()
 hilight()
 //Line numbering Hilighting Autosaving
-editor.addEventListener('keyup', event => {
+editor.addEventListener('input', event => {
     output.innerHTML = editor.innerHTML
     hilight()
     linenumber()
@@ -104,8 +104,8 @@ function countLines() {
 
 //Auto save
 function autosave() {
-    files[index].editor = output.innerHTML
-    files[index].content = output.innerText
+    files[index].editor = editor.innerHTML
+    files[index].content = editor.innerText
     saveFiles()
 }
 
@@ -120,18 +120,18 @@ function saving() {
     }, 2500)
 }
 
-function toggleLive() {
-    if (liveArea.classList.contains('showing')) {
+function toggleLive(type) {
+    if (type != undefined) {
+        liveArea.classList.add('showing')
+        liveRender.src = `live.html?file=${files[index].id}&type=${type}`
+    }else{
         liveArea.classList.remove('showing')
         liveRender.src = ''
-    } else {
-        liveArea.classList.add('showing')
-        liveRender.src = `live.html?file=${files[index].id}`
     }
 }
 
 function runLive() {
-    liveRender.src = `live.html?file=${files[index].id}`
+    liveRender.src = liveRender.src
 }
 
 //Send user to editor
@@ -139,7 +139,7 @@ document.addEventListener('click', e => {
     if (e.target == wrapper.children.item(0) && e.target != editor) {
         editor.focus()
         let range = window.getSelection().getRangeAt(0);
-        let focus = editor.lastElementChild
+        let focus = editor.childNodes.item(editor.childNodes.length-1)
         range.setStartAfter(focus);
     }
 })
@@ -200,7 +200,11 @@ document.getElementById('cut-btn').addEventListener('click', () => MenuBar.cut()
 document.getElementById('copy-btn').addEventListener('click', () => MenuBar.copy())
 document.getElementById('paste-btn').addEventListener('click', () => MenuBar.paste())
 document.getElementById('selectall-btn').addEventListener('click', () => MenuBar.selectAll())
-document.getElementById('live-toggler').addEventListener('click', () => toggleLive())
+
+document.querySelectorAll('.live-toggler').forEach(e=>{
+    e.addEventListener('click',()=>toggleLive(e.dataset.type))
+})
+
 document.getElementById('close-live').addEventListener('click', () => toggleLive())
 
 //Context

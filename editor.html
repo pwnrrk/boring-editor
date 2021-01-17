@@ -6,7 +6,7 @@
     <title>Minimal Editor</title>
     <link rel="stylesheet" href="./Style/index.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/atom-one-dark.min.css">
 
 </head>
@@ -133,9 +133,19 @@
                 <li><a class="navbar-link" data-toggle="dropdown" data-target="#view">View</a></li>
                 <div class="dropdown" id="view">
                     <ul>
-                        <li><a class="text-light dropdown-link" id="live-toggler">
+                        <li><a class="text-light dropdown-link live-toggler" data-type="html">
                                 <div>
                                     Toggle HTML Live Demo
+                                </div>
+                            </a></li>
+                        <li><a class="text-light dropdown-link live-toggler" data-type="markdown">
+                                <div>
+                                    Toggle Markdown Live Demo
+                                </div>
+                            </a></li>
+                        <li><a class="text-light dropdown-link live-toggler" data-type="js">
+                                <div>
+                                    Toggle JS Console Live Demo
                                 </div>
                             </a></li>
                     </ul>
@@ -168,20 +178,20 @@
             <div class="col live-area" id="live-area">
                 <div class="row nm bg-dark bd-secondary p-1 align-items-center">
                     <div class="col-10 flex align-items-center">
-                        <h3 class="nm pr-1">HTML Live Demo</h3>
+                        <h3 class="nm pr-1">Live Demo</h3>
                         <button class="btn btn-success" id="rerun-btn">Run <b>&blacktriangleright;</b></button>
                     </div>
                     <div class="col-2 flex justify-content-end"><button class="btn-close text-light"
                             id="close-live">X</button></div>
                 </div>
-                <iframe frameborder="0" id="live-render"></iframe>
+                <iframe id="live-render"></iframe>
             </div>
         </div>
     </div>
     <div class="modal slide modal-sm static" id="save" tabindex="-1" role="dialog" aria-labelledby="save"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content bg-dark bd-secondary">
+            <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title text-center"></div>
                 </div>
@@ -274,6 +284,7 @@
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script src="./node_modules/@r.phuwanat/minbootstrap/js/minBootstrap.min.js"></script>
 <script src="./App/edtor.js" type="module"></script>
 
 </html>

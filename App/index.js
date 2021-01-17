@@ -24,6 +24,8 @@ const controller = {
     file: File
 }
 
+let moveTemp = undefined
+
 window.addEventListener('load', init)
 
 async function init() {
@@ -31,13 +33,16 @@ async function init() {
     folders = Folder.get()
     displayFile()
     displayFolder()
+    initFocus()
     contextOverride()
 
-    await App.getVersion().then(res => {
+    /* await App.getVersion().then(res => {
         document.getElementById('version').innerText = res[0].tag_name
         document.getElementById('release-title').innerText = res[0].name
         document.getElementById('release-body').innerText = res[0].body
-    })
+    }).catch(err=>{
+        console.log(err)
+    }) */
 
     //Button
     document.getElementById('newfile').addEventListener('click', newfile)
@@ -69,7 +74,8 @@ async function init() {
             closeModal()
         }
     })
-
+    document.getElementById('moveto-back').addEventListener('click', ()=>movetoBack())
+    document.getElementById('move-btn').addEventListener('click',()=>finishMove())
 }
 
 //New File
@@ -111,7 +117,11 @@ function contextOverride() {
     document.getElementById('context-rename').addEventListener('click', () => {
         document.getElementById('newname').value = contextItem.name
     })
-    document.getElementById('context-open').addEventListener('click',()=>controller[contextItem.type].open(contextItem.id))
+    document.getElementById('context-open').addEventListener('click', () => controller[contextItem.type].open(contextItem.id))
+    document.getElementById('context-move').addEventListener('click', () => {
+        moveTemp = contextItem.parent
+        displayMoveto()
+    })
 }
 
 //New Folder
@@ -132,12 +142,14 @@ function displayFile() {
         if (file.name != "") {
             let button = document.createElement('button')
             button.innerHTML = `<span class="ic-wrapper"><i class="ic ${getClassWithColor(file.name)}"></i></span><span class="file-item-name">${file.name}</span>`
-            button.setAttribute('class', 'btn btn-secondary shadow file-item m-1')
+            button.setAttribute('class', 'btn btn-dark shadow file-item m-1')
             setDragElement(button)
             button.dataset.id = file.id
             button.dataset.name = file.name
             button.dataset.type = 'file'
+            button.dataset.parent = file.parent
             button.addEventListener('dblclick', () => File.open(button.dataset.id))
+            button.addEventListener('click', () => { button.classList.add('focus') })
             document.getElementById('file-area').append(button)
         }
     });
@@ -172,13 +184,7 @@ function setDragElement(element = document.createElement()) {
         event.preventDefault()
         document.querySelectorAll('.folder-item').forEach(e => {
             if (e == event.target || e.contains(event.target)) {
-                if (draggingElement.dataset.type == 'file') {
-                    files[ObjectHelper.findIndex('id', draggingElement.dataset.id, files)].parent = e.dataset.id
-                    File.update(files)
-                } else {
-                    folders[ObjectHelper.findIndex('id', draggingElement.dataset.id, folders)].parent = e.dataset.id
-                    Folder.update(folders)
-                }
+                Folder.moveTo(draggingElement.dataset.id,e.dataset.id,draggingElement.dataset.type)
                 e.classList.remove('dragover')
                 refresh()
                 return false
@@ -195,10 +201,11 @@ function displayFolder() {
         if (folder.name != "") {
             let button = document.createElement('button')
             button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" style="width:16px;" data-icon="folder"  class="svg-inline--fa fa-folder fa-w-16" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z"/></svg> ${folder.name}`
-            button.setAttribute('class', 'btn btn-secondary shadow folder-item m-1')
+            button.setAttribute('class', 'btn btn-dark shadow folder-item m-1')
             button.dataset.id = folder.id
             button.dataset.name = folder.name
             button.dataset.type = 'folder'
+            button.dataset.parent = folder.parent
             setDragElement(button)
             button.addEventListener('dblclick', () => Folder.open(button.dataset.id))
             document.getElementById('folder-area').append(button)
@@ -206,8 +213,52 @@ function displayFolder() {
     });
 }
 
+function displayMoveto() {
+    document.getElementById('moveto-body').innerHTML = ""
+    let folderInDir = ObjectHelper.filter('parent', '=', moveTemp, folders)
+    folderInDir.forEach(folder => {
+        if (folder.name != "") {
+            let button = document.createElement('button')
+            button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" style="width:16px;" data-icon="folder"  class="svg-inline--fa fa-folder fa-w-16" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M464 128H272l-64-64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48z"/></svg> ${folder.name}`
+            button.setAttribute('class', 'btn btn-dark shadow folder-item m-1 folder-move-to')
+            button.dataset.id = folder.id
+            button.dataset.name = folder.name
+            button.dataset.type = 'folder'
+            button.dataset.parent = folder.parent
+            setDragElement(button)
+            button.addEventListener('dblclick', () => movetoEnter(button.dataset.id))
+            document.getElementById('moveto-body').append(button)
+        }
+    });
+
+    if(moveTemp==0){
+        document.getElementById('moveto-back').innerHTML = `${App.getPath(moveTemp)}`
+    }else{
+        document.getElementById('moveto-back').innerHTML = `&leftarrow; ${App.getPath(moveTemp)}`
+    }
+}
+
+function movetoBack() {
+    moveTemp = ObjectHelper.find('id', moveTemp, folders).parent
+    displayMoveto()
+}
+
+function movetoEnter(id) {
+    moveTemp = id
+    displayMoveto()
+}
+
+function finishMove(){
+    let id = moveTemp
+    document.querySelectorAll('.folder-item.focus').forEach(e=>{
+        id = e.dataset.id
+    })
+    Folder.moveTo(contextItem.id,id,contextItem.type)
+    refresh()
+}
+
 //Context On File
-let contextItem = { id: 0, name: '', type: '' }
+let contextItem = { id: 0, name: '', type: '', parent: 0 }
 
 function contextFileItem(event) {
     document.querySelectorAll('.file-item').forEach(file => {
@@ -215,6 +266,7 @@ function contextFileItem(event) {
             contextItem.id = file.dataset.id
             contextItem.name = file.dataset.name
             contextItem.type = 'file'
+            contextItem.parent = file.dataset.parent
             document.querySelectorAll('.context-item').forEach(fc => {
                 fc.setAttribute('hidden', '')
             })
@@ -231,6 +283,7 @@ function contextFolderItem(event) {
             contextItem.id = folder.dataset.id
             contextItem.name = folder.dataset.name
             contextItem.type = 'folder'
+            contextItem.parent = folder.dataset.parent
             document.querySelectorAll('.context-item').forEach(fc => {
                 fc.setAttribute('hidden', '')
             })
@@ -238,6 +291,23 @@ function contextFolderItem(event) {
                 fc.removeAttribute('hidden')
             })
         }
+    })
+}
+
+function resetFocus() {
+    document.querySelectorAll('.file-item,.folder-item').forEach(e => {
+        e.classList.remove('focus')
+    })
+}
+
+function initFocus() {
+    document.addEventListener('click', (e) => {
+        resetFocus()
+        document.querySelectorAll('.file-item,.folder-item').forEach(el => {
+            if (!e.target == el || el.contains(e.target)) {
+                el.classList.add('focus')
+            }
+        })
     })
 }
 

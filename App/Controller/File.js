@@ -27,7 +27,7 @@ class file {
         localStorage.setItem('files', JSON.stringify(files))
     }
     delete(fileId) {
-        let files = JSON.parse(localStorage.getItem('files'))
+        let files = this.get()
         let index = ObjectHelper.findIndex('id', fileId, files)
         files.splice(index, 1)
         localStorage.setItem('files', JSON.stringify(files))
