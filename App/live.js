@@ -11,26 +11,34 @@ const type = {
         window.document.write(content)
     },
     markdown: () => {
-        window.document.write(`<div class="container markdown">${marked(content)}</div>`)
-        document.head.innerHTML +=
-            `<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Minimal Editor</title><link rel="stylesheet" href="./Style/index.css">
-            <link rel="preconnect" href="https://fonts.gstatic.com">
-            <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
-            <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>`
+        window.document.write(`
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="./Style/index.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
+        <div class="container markdown">${marked(content)}</div>
+        `)
         document.body.style.overflow = 'auto'
     },
     js: () => {
-        window.document.write(`<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Minimal Editor</title><link rel="stylesheet" href="./Style/index.css">
+        window.document.write(`
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="./Style/index.css">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap" rel="stylesheet">
+        <div id="console"><h3>Output:</h3></div>
+        <script>
+                ${content}
+        </script>
         `)
-        window.document.write(`<div id="console"><h3>Output:</h3></div>`)
         const consoleElment = document.getElementById('console')
-        window.document.write(`<script>${content}</script>`)
         Console.init(consoleElment)
         document.body.style.overflow = 'auto'
         document.body.classList.add('bg-dark')
     }
 }
-
 window.addEventListener('load', type[url.get('type')])
