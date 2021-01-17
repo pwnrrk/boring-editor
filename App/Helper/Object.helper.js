@@ -1,4 +1,4 @@
-export const ObjectHelper = {
+export default ObjectHelper = {
 
     /**
      * Sort Array of Object by Key.
@@ -6,8 +6,9 @@ export const ObjectHelper = {
      * @param {String} key Key to compare
      * @param {String} mode Sort mode 'desc' or 'asc'
      * @param {Array} array Array of Object to sort
+     * @param {Boolean} copy Return new value or sort the original Array
      */
-    sort(key = '', mode = '', array = [{}]) {
+    sort(key = '', mode = '', array = [{}],copy=true) {
         let compare = {
             desc: function (a, b) {
                 if (a[key] < b[key]) {
@@ -28,8 +29,12 @@ export const ObjectHelper = {
                 return 0;
             },
         }
-        const sorted = [...array]
-        return  sorted.sort(compare[mode])
+        if(copy == undefined || (copy)){
+            const sorted = [...array]
+            return  sorted.sort(compare[mode])
+        }else{
+            return array.sort(compare[mode])
+        }
     },
     /**
      * Fetch Array of Object
@@ -40,6 +45,12 @@ export const ObjectHelper = {
     find(key = '', value, array = []) {
         return array.find(e => e[key] == value)
     },
+    /**
+     * Fetch index Array of Object
+     * @param {String} key Key to compare
+     * @param {*} value Value to compare
+     * @param {Array} array Array to find
+     */
     findIndex(key = '', value, array = []) {
         return array.findIndex(e => e[key] == value)
     },
