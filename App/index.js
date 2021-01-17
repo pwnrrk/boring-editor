@@ -36,13 +36,13 @@ async function init() {
     initFocus()
     contextOverride()
 
-    /* await App.getVersion().then(res => {
+    await App.getVersion().then(res => {
         document.getElementById('version').innerText = res[0].tag_name
         document.getElementById('release-title').innerText = res[0].name
         document.getElementById('release-body').innerText = res[0].body
     }).catch(err=>{
         console.log(err)
-    }) */
+    })
 
     //Button
     document.getElementById('newfile').addEventListener('click', newfile)
