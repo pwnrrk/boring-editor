@@ -7,35 +7,51 @@ class file {
         window.open(`editor.html?file=${id}`)
     }
     get() {
-        if (localStorage.getItem('files')) {
-            return JSON.parse(localStorage.getItem('files'))
-        }
+        return localStorage.getItem('files') ? JSON.parse(localStorage.getItem('files')) : alert("Something went wrong! We couldn't get your files.")
     }
     save(filename, folderID) {
         let files = this.get()
         let fil = ObjectHelper.filter('parent', '=', folderID, files)
-        if (ObjectHelper.filter('name', '=', filename, fil).length < 1) {
-            let file = { id: FileIndex.next(), name: filename, editor: '', content: '', parent: folderID }
-            files.push(file)
+
+        function execute() {
+            try {
+                let file = { id: FileIndex.next(), name: filename, editor: '', content: '', parent: folderID }
+                files.push(file)
+                localStorage.setItem('files', JSON.stringify(files))
+                return true
+            } catch (err) {
+                console.error(err)
+                return false
+            }
+        }
+
+        return (ObjectHelper.filter('name', '=', filename, fil).length < 1) ? execute() : false
+    }
+    update(files = Files) {
+        try {
             localStorage.setItem('files', JSON.stringify(files))
             return true
-        } else {
+        } catch (err) {
+            console.error(err)
             return false
         }
     }
-    update(files = Files) {
-        localStorage.setItem('files', JSON.stringify(files))
-    }
     delete(fileId) {
-        let files = this.get()
-        let index = ObjectHelper.findIndex('id', fileId, files)
-        files.splice(index, 1)
-        localStorage.setItem('files', JSON.stringify(files))
+        try {
+            let files = this.get()
+            let index = ObjectHelper.findIndex('id', fileId, files)
+            files.splice(index, 1)
+            localStorage.setItem('files', JSON.stringify(files))
+            return true
+        } catch (err) {
+            console.error(err)
+            return false
+        }
     }
-    rename(id,newname){
+    rename(id, newname) {
         let files = Files
         files = this.get()
-        files[ObjectHelper.findIndex('id',id,files)].name = newname
+        files[ObjectHelper.findIndex('id', id, files)].name = newname
         this.update(files)
     }
 }

@@ -2,6 +2,7 @@ import { ObjectHelper } from "../Helper/Object.helper.js"
 import { Folders } from "../Model/Folders.js"
 import { File } from "./File.js"
 import { FolderIndex } from "./FolderIndex.js"
+import { AlertHelper } from "../Helper/Alert.helper.js"
 
 class folder {
     open(id) {
@@ -59,6 +60,9 @@ class folder {
                 let folders = this.get()
                 folders[ObjectHelper.findIndex('id', toMove.id, folders)].parent = targetId
                 this.update(folders)
+                return true
+            }else{
+                return false
             }
         } else {
             toMove = ObjectHelper.find('id', id, File.get())
@@ -66,11 +70,14 @@ class folder {
                 let files = File.get()
                 files[ObjectHelper.findIndex('id', toMove.id, files)].parent = targetId
                 File.update(files)
+                return true
+            }else{
+                return false
             }
         }
         function checkExist() {
             if (toMove.parent == targetId) {
-                alert('Item is already in folder!')
+                AlertHelper.alert('Cannot Move','Item is already in folder!')
                 return false
             } else {
                 return true
@@ -80,7 +87,7 @@ class folder {
             let filter = ObjectHelper.filter('parent', '=', targetId, array)
             filter = ObjectHelper.filter('name', '=', toMove.name, filter)
             if (filter.length > 0) {
-                alert('Destination folder have an item with the same name!')
+                AlertHelper.alert('Cannot Move','Destination folder have an item with the same name!')
                 return false
             } else {
                 return true
@@ -97,11 +104,11 @@ class folder {
                 paths.push(folder)
             }
             if (toMove.id == targetId) {
-                alert('Cannot move to itself!')
+                AlertHelper.alert('Cannot Move','Cannot move to itself!')
                 return false
             }
             else if (ObjectHelper.filter('parent','=',toMove.id,paths).length>0){
-                alert('Cannot move to itself!')
+                AlertHelper.alert('Cannot Move','Cannot move to itself!')
                 return false
             }else{
                 return true

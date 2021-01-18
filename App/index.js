@@ -5,6 +5,7 @@ import { ObjectHelper } from "./Helper/Object.helper.js"
 import { App } from "./Controller/App.js"
 import { Files } from "./Model/Files.js"
 import { Folders } from "./Model/Folders.js"
+import { AlertHelper } from "./Helper/Alert.helper.js"
 
 const url = new URLSearchParams(window.location.search)
 
@@ -49,13 +50,11 @@ async function init() {
     document.getElementById('filename').addEventListener('keyup', (e) => {
         if (e.key == 'Enter' && e.target.value != '') {
             newfile()
-            closeModal()
         }
     })
     document.getElementById('foldername').addEventListener('keyup', (e) => {
         if (e.key == 'Enter' && e.target.value != '') {
             newFolder()
-            closeModal()
         }
     })
     document.getElementById('newfolder').addEventListener('click', newFolder)
@@ -66,6 +65,7 @@ async function init() {
     document.getElementById('rename-btn').addEventListener('click', () => {
         controller[contextItem.type].rename(contextItem.id, document.getElementById('newname').value)
         refresh()
+        closeModal()
     })
     document.getElementById('newname').addEventListener('keyup', (e) => {
         if (e.key == 'Enter' && e.target.value != '') {
@@ -80,12 +80,7 @@ async function init() {
 
 //New File
 function newfile() {
-    let filename = document.getElementById('filename').value
-    if (File.save(filename, activeFolder)) {
-        refresh()
-    } else {
-        alert('File already created')
-    }
+    File.save(document.getElementById('filename').value, activeFolder)? refresh():AlertHelper.alert('Alert','File already created')
 }
 
 function contextOverride() {
@@ -130,7 +125,7 @@ function newFolder() {
     if (Folder.save(foldername, activeFolder)) {
         refresh()
     } else {
-        alert('Folder already created')
+        AlertHelper.alert('Alert','Folder already created')
     }
 }
 
@@ -184,9 +179,8 @@ function setDragElement(element = document.createElement()) {
         event.preventDefault()
         document.querySelectorAll('.folder-item').forEach(e => {
             if (e == event.target || e.contains(event.target)) {
-                Folder.moveTo(draggingElement.dataset.id,e.dataset.id,draggingElement.dataset.type)
+                Folder.moveTo(draggingElement.dataset.id,e.dataset.id,draggingElement.dataset.type)? refresh(): '' 
                 e.classList.remove('dragover')
-                refresh()
                 return false
             }
         })
@@ -253,8 +247,7 @@ function finishMove(){
     document.querySelectorAll('.folder-item.focus').forEach(e=>{
         id = e.dataset.id
     })
-    Folder.moveTo(contextItem.id,id,contextItem.type)
-    refresh()
+    Folder.moveTo(contextItem.id,id,contextItem.type)? refresh():''
 }
 
 //Context On File
@@ -316,4 +309,5 @@ function refresh() {
     folders = Folder.get()
     displayFile()
     displayFolder()
+    closeModal()
 }

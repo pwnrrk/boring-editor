@@ -79,7 +79,7 @@
                 <div class="flex mt-1" id="file-area"></div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
+        <div class="modal bonce modal-sm " id="new-file" tabindex="-1" role="dialog" aria-labelledby="new-file"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -97,12 +97,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="newfile">OK</button>
+                        <button type="button" class="btn btn-primary" id="newfile">OK</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="new-folder" tabindex="-1" role="dialog"
+        <div class="modal bonce modal-sm " id="new-folder" tabindex="-1" role="dialog"
             aria-labelledby="new-folder" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -120,12 +120,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="newfolder">OK</button>
+                        <button type="button" class="btn btn-primary" id="newfolder">OK</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="rename" tabindex="-1" role="dialog" aria-labelledby="rename"
+        <div class="modal bonce modal-sm " id="rename" tabindex="-1" role="dialog" aria-labelledby="rename"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -143,7 +143,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="rename-btn">Save</button>
+                        <button type="button" class="btn btn-primary" id="rename-btn">Save</button>
                     </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="moveto" tabindex="-1" role="dialog" aria-labelledby="moveto"
+        <div class="modal bonce modal-sm " id="moveto" tabindex="-1" role="dialog" aria-labelledby="moveto"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -304,12 +304,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="move-btn">Move</button>
+                        <button type="button" class="btn btn-primary" id="move-btn">Move</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal bonce modal-sm static" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete"
+        <div class="modal bonce modal-sm " id="delete" tabindex="-1" role="dialog" aria-labelledby="delete"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -324,8 +324,27 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        <button type="button" class="btn btn-primary"
                             id="delete-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade modal-sm" id="alert" tabindex="-1" role="dialog" aria-labelledby="alert"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title text-center"><span id="alert-title"></span></div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="text-light">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h4 id="alert-body" class="text-center"></h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="closeModal('#alert')">OK</button>
                     </div>
                 </div>
             </div>

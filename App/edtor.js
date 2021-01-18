@@ -12,12 +12,12 @@ const liveRender = document.getElementById('live-render')
 const context = document.getElementById('context')
 const url = new URLSearchParams(window.location.search)
 
+//Override context menu
 document.addEventListener('contextmenu', (event) => {
     event.preventDefault()
     context.classList.add('showing')
     context.setAttribute('style', `top:${event.y}px;left:${event.x}px`)
 })
-
 
 let files = JSON.parse(localStorage.getItem('files'))
 let file = files.find(x => x.id == url.get('file'))
@@ -36,13 +36,8 @@ document.title = filename.innerText
 //Check file type and hilight
 checkFileType()
 hilight()
-//Line numbering Hilighting Autosaving
-editor.addEventListener('input', event => {
-    output.innerHTML = editor.innerHTML
-    hilight()
-    linenumber()
-    autosave()
-})
+
+editor.addEventListener('input',input)
 editor.addEventListener('focusin', event => {
     if (editor.innerText == "") {
         let range = window.getSelection().getRangeAt(0);
@@ -63,6 +58,13 @@ function saveFiles() {
 //Hilight syntax Feature
 function hilight() {
     hljs.highlightBlock(output);
+}
+
+function input(){
+    output.innerHTML = editor.innerHTML
+    hilight()
+    linenumber()
+    autosave()
 }
 
 //Check file type
@@ -162,6 +164,7 @@ function insertTabAtCaret(event) {
 
         range.setStartAfter(tabNode);
         range.setEndAfter(tabNode);
+        input()
     }
 }
 
