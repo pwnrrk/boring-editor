@@ -4,7 +4,7 @@
   "description": "Simple Text Editor",
   "main": "index.js",
   "dependencies": {
-    "@r.phuwanat/minbootstrap": "^1.6.0",
+    "@r.phuwanat/minbootstrap": "^1.6.2",
     "file-icons-js": "github:websemantics/file-icons-js"
   },
   "devDependencies": {},

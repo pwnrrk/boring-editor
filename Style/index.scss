@@ -16,7 +16,6 @@ $secondary: lighten($dark,10);
 }
 
 .modal{
-    z-index: 5;
     .modal-content{
         background-color: $secondary !important;
     }
@@ -100,7 +99,6 @@ body{
 }
 .dropdown{
     overflow: hidden;
-    z-index: 4;
     background-color: $secondary;
     ul{
         display: list-item;
