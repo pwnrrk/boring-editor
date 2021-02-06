@@ -194,13 +194,16 @@
             <div class="col live-area" id="live-area">
                 <div class="row nm bg-dark bd-secondary p-1 align-items-center">
                     <div class="col-10 flex align-items-center">
-                        <h3 class="nm pr-1">Live Demo</h3>
-                        <button class="btn btn-success" id="rerun-btn">Run <b>&blacktriangleright;</b></button>
+                        <button class="btn btn-success" id="rerun-btn" style="display: none;" hidden >Run <b>&blacktriangleright;</b></button>
                     </div>
                     <div class="col-2 flex justify-content-end"><button class="btn-close text-light"
                             id="close-live">X</button></div>
                 </div>
-                <iframe id="live-render"></iframe>
+                <div class="p-1">
+                    <div id="html"></div>
+                    <div class="markdown" id="markdown"></div>
+                    <div id="js" class="console"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -299,6 +302,7 @@
     </div>
 </body>
 <script src="https://pwnrrk.github.io/minimalbootstrap/minbootstrap/js/minBootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script><!-- 
 <script src="./node_modules/@r.phuwanat/minbootstrap/js/minBootstrap.min.js"></script> -->
 <script src="./App/edtor.js" type="module"></script>

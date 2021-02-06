@@ -1,5 +1,5 @@
 import { MenuBar } from "./Controller/MenuBar.js"
-
+import { Console } from "./Controller/Console.js"
 //Element
 const editor = document.getElementById('editor')
 const output = document.getElementById('output')
@@ -8,7 +8,6 @@ const line = document.getElementById('line')
 const filename = document.getElementById('filename')
 const autosaving = document.getElementById('autosaving')
 const liveArea = document.getElementById('live-area')
-const liveRender = document.getElementById('live-render')
 const context = document.getElementById('context')
 const url = new URLSearchParams(window.location.search)
 
@@ -37,7 +36,7 @@ document.title = filename.innerText
 checkFileType()
 hilight()
 
-editor.addEventListener('input',input)
+editor.addEventListener('input', input)
 editor.addEventListener('focusin', event => {
     if (editor.innerText == "") {
         let range = window.getSelection().getRangeAt(0);
@@ -60,7 +59,7 @@ function hilight() {
     hljs.highlightBlock(output);
 }
 
-function input(){
+function input() {
     output.innerHTML = editor.innerHTML
     hilight()
     linenumber()
@@ -122,18 +121,55 @@ function saving() {
     }, 2500)
 }
 
+const html = document.getElementById('html')
+const md = document.getElementById('markdown')
+const js = document.getElementById('js')
+
+function clearLive() {
+    html.innerHTML = ''
+    md.innerHTML = ''
+    js.innerHTML = ''
+}
+
+function renderLive() {
+    html.innerHTML = editor.innerText
+}
+
+function renderMd() {
+    md.innerHTML = marked(editor.innerText)
+}
+
 function toggleLive(type) {
-    if (type != undefined) {
+    clearLive()
+    liveArea.classList.remove('showing')
+    liveArea.classList.remove('dark')
+    editor.removeEventListener('input', renderLive)
+    editor.removeEventListener('keyup', renderLive)
+    editor.removeEventListener('input', renderMd)
+    editor.removeEventListener('keyup', renderMd)
+    document.getElementById('rerun-btn').style.display = 'none'
+    if (type == 'html') {
         liveArea.classList.add('showing')
-        liveRender.src = `live.html?file=${files[index].id}&type=${type}`
-    }else{
-        liveArea.classList.remove('showing')
-        liveRender.src = ''
+        renderLive()
+        editor.addEventListener('input', renderLive)
+        editor.addEventListener('keyup', renderLive)
+    } else if (type == 'markdown') {
+        liveArea.classList.add('showing')
+        renderMd()
+        editor.addEventListener('input', renderMd)
+        editor.addEventListener('keyup', renderMd)
+    }
+    else if (type == 'js') {
+        liveArea.classList.add('showing')
+        liveArea.classList.add('dark')
+        document.getElementById('rerun-btn').style.display = 'block'
     }
 }
 
 function runLive() {
-    liveRender.src = liveRender.src
+    Console.init(js)
+    let code = editor.innerText
+    setTimeout(code, 1)
 }
 
 //Send user to editor
@@ -141,7 +177,7 @@ document.addEventListener('click', e => {
     if (e.target == wrapper.children.item(0) && e.target != editor) {
         editor.focus()
         let range = window.getSelection().getRangeAt(0);
-        let focus = editor.childNodes.item(editor.childNodes.length-1)
+        let focus = editor.childNodes.item(editor.childNodes.length - 1)
         range.setStartAfter(focus);
     }
 })
@@ -204,8 +240,8 @@ document.getElementById('copy-btn').addEventListener('click', () => MenuBar.copy
 document.getElementById('paste-btn').addEventListener('click', () => MenuBar.paste())
 document.getElementById('selectall-btn').addEventListener('click', () => MenuBar.selectAll())
 
-document.querySelectorAll('.live-toggler').forEach(e=>{
-    e.addEventListener('click',()=>toggleLive(e.dataset.type))
+document.querySelectorAll('.live-toggler').forEach(e => {
+    e.addEventListener('click', () => toggleLive(e.dataset.type))
 })
 
 document.getElementById('close-live').addEventListener('click', () => toggleLive())
@@ -219,4 +255,4 @@ document.getElementById('context-paste').addEventListener('click', () => MenuBar
 document.getElementById('context-selectall').addEventListener('click', () => MenuBar.selectAll())
 
 //Other
-document.getElementById('rerun-btn').addEventListener('click', () => runLive())
+document.getElementById('rerun-btn').addEventListener('click', runLive)

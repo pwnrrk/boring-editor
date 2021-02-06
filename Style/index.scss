@@ -76,9 +76,14 @@ body{
 .live-area{
     display: none;
     background-color: $white;
+    color: $dark;
     @extend .shadow;
     &.showing{
         display: block;
+    }
+    &.dark{
+        background-color: $dark;
+        color: $white;
     }
     #live-render{
         width: 100%;
@@ -210,13 +215,8 @@ body{
         }
     }
 }
-#console{
+.console{
     font-family: 'Source Code Pro', monospace;
-    padding: .5rem;
-    background-color: $dark;
-    width: 100%;
-    height: 100%;
-    color: $light;
     *{
         font-family: 'Source Code Pro', monospace;
     }
